@@ -1,0 +1,11 @@
+# Entornos virtuales
+venv/
+.venv/
+ENV/
+env/
+
+# Archivos compilados de Python y caché
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
