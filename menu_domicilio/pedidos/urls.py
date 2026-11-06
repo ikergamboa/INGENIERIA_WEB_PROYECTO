@@ -1,0 +1,10 @@
+from django.urls import path
+
+from .views import RegistroView
+
+
+app_name = 'pedidos'
+
+urlpatterns = [
+    path('registro/', RegistroView.as_view(), name='registro'),
+]
