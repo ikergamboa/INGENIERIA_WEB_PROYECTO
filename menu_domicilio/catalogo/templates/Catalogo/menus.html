@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <h2>Menús Disponibles</h2>
+  
+  <div class="lista-platos">
+    <ul>
+      <!-- Recorremos los platos enviados por la vista -->
+      {% for plato in platos %}
+        <li>
+          <strong>{{ plato.nombre }}</strong> - {{ plato.precio }}€ 
+          <br>
+          <small>Categoría: {{ plato.categoria }} | Calorías: {{ plato.calorias }} kcal</small>
+          <p>{{ plato.descripcion }}</p>
+          
+          {% if plato.disponible %}
+            <span style="color: green;">Disponible ({{ plato.num_disponible }} uds.)</span>
+          {% else %}
+            <span style="color: red;">Agotado</span>
+          {% endif %}
+        </li>
+        <hr>
+      {% empty %}
+        <li>No hay platos disponibles en este momento.</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}
