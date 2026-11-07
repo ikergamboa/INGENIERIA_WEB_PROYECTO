@@ -21,7 +21,7 @@ def registro(request):
             
             # Guardamos en la base de datos (Usuario de Django + Perfil Cliente)
             user = User.objects.create_user(username=username, email=email, password=password)
-            Cliente.objects.create(user=user, telefono=telefono, direccion=direccion)
+            Cliente.objects.create(usuario=user, telefono=telefono, direccion=direccion)
             
             return redirect('menus_disponibles')
     else:

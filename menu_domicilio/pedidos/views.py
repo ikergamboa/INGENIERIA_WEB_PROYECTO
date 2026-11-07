@@ -1,9 +1,14 @@
-from rest_framework import generics
-from rest_framework.permissions import AllowAny
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from .models import Pedido
 
-from .serializers import RegistroSerializer
 
-
-class RegistroView(generics.CreateAPIView):
-    serializer_class = RegistroSerializer
-    permission_classes = [AllowAny]
+@login_required
+def mis_pedidos(request):
+    # Obtenemos el cliente asociado al usuario actual de la sesión
+    cliente_actual = request.user.cliente
+    
+    # Filtramos los pedidos que pertenecen exclusivamente a este cliente
+    pedidos = Pedido.objects.filter(cliente=cliente_actual)
+    
+    return render(request, 'pedidos/mis_pedidos.html', {'pedidos': pedidos})
