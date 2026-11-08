@@ -13,13 +13,10 @@ class Cliente(models.Model):
         return f"Cliente: {self.usuario.get_username()}"
 
 class Pedido(models.Model):
-    # ForeignKey define la relación con otro modelo de la base de datos
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    cliente = models.ForeignKey('Cliente', on_delete=models.CASCADE)
     plato = models.ForeignKey(Plato, on_delete=models.CASCADE)
-    fecha_creacion = models.DateTimeField('Fecha de creacion', auto_now_add=True)
-    
-    # Es posible indicar un valor por defecto mediante 'default'
     cantidad = models.IntegerField(default=1)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)  # Se guarda la fecha/hora actual al crear el pedido
 
     def __str__(self):
-        return f"{self.cliente} - {self.plato.nombre}"
+        return f"Pedido {self.id} - {self.cliente.user.username}"

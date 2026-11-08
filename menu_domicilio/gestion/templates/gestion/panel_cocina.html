@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Panel de Cocina (Administración)</h2>
+  <a href="{% url 'gestion:crear_plato' %}">+ Añadir Nuevo Plato</a>
+  <br><br>
+  <table border="1" cellpadding="5">
+    <tr>
+      <th>Nombre</th>
+      <th>Categoría</th>
+      <th>Stock</th>
+      <th>Acciones</th>
+    </tr>
+    {% for plato in platos %}
+      <tr>
+        <td>{{ plato.nombre }}</td>
+        <td>{{ plato.categoria }}</td>
+        <td>{{ plato.num_disponible }}</td>
+        <td>
+          <a href="{% url 'gestion:editar_plato' plato.id %}">Editar</a> | 
+          <a href="{% url 'gestion:borrar_plato' plato.id %}">Borrar</a>
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

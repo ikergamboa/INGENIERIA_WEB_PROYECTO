@@ -1,13 +1,43 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Menú a Domicilio</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <div id="content">
+    <header>
+        <h1>Restaurante a Domicilio</h1>
+        <nav>
+            <ul>
+                <!-- Enlace universal -->
+                <li><a href="{% url 'catalogo:menus_disponibles' %}">Menús Disponibles</a></li>
+
+                {% if user.is_authenticated %}
+                    <!-- Opciones para usuarios logueados -->
+                    <li><a href="{% url 'pedidos:mis_pedidos' %}">Mis Pedidos</a></li>
+                    
+                    {% if user.is_staff %}
+                        <!-- Opción visible solo si es Administrador / Staff -->
+                        <li><a href="{% url 'gestion:panel_cocina' %}">Panel de Cocina</a></li>
+                    {% endif %}
+
+                    <li><span>Hola, {{ user.username }}</span></li>
+                    <li><a href="{% url 'gestion:logout' %}">Cerrar Sesión</a></li>
+                {% else %}
+                    <!-- Opciones para visitantes / invitados -->
+                    <li><a href="{% url 'gestion:login' %}">Iniciar Sesión</a></li>
+                    <li><a href="{% url 'gestion:registro' %}">Registrarse</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <hr>
+
+    <main>
         {% block content %}
         {% endblock %}
-    </div>
+    </main>
 </body>
 </html>

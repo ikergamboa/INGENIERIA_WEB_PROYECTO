@@ -8,8 +8,7 @@
       {% for pedido in pedidos %}
         <li>
           <strong>Pedido #{{ pedido.id }}</strong> - 
-          Fecha: {{ pedido.fecha }} - 
-          Estado: {{ pedido.estado }}
+          <strong>Plato:</strong> {{ pedido.plato.nombre }} ({{ pedido.cantidad }} ud/s) 
         </li>
       {% endfor %}
     </ul>

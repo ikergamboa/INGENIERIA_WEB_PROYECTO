@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>¿Estás seguro de que deseas eliminar el plato "{{ plato.nombre }}"?</h2>
+  <form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Sí, eliminar">
+    <a href="{% url 'gestion:panel_cocina' %}">Cancelar</a>
+  </form>
+{% endblock %}

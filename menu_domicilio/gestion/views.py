@@ -1,11 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from pedidos.models import Cliente
 from catalogo.models import Plato
 from .forms import RegistroForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .forms import LoginForm
+from django.contrib.admin.views.decorators import staff_member_required
+from catalogo.forms import PlatoForm
 
 def registro(request):
     if request.method == 'POST':
@@ -43,7 +45,7 @@ def iniciar_sesion(request):
             if user is not None:
                 # Si el usuario existe y la contraseña es correcta, iniciamos sesión
                 login(request, user)
-                return redirect('menus_disponibles')
+                return redirect('catalogo:menus_disponibles')
             else:
                 # Si falla, podemos añadir un error general al formulario
                 form.add_error(None, "Usuario o contraseña incorrectos")
@@ -52,12 +54,42 @@ def iniciar_sesion(request):
         
     return render(request, 'gestion/login.html', {'form': form})
 
+def cerrar_sesion(request):
+    logout(request)
+    return redirect('gestion:login')
+
+@staff_member_required
 def panel_cocina(request):
     platos = Plato.objects.all()
-    
-    texto = "Panel de Cocina - Platos en el sistema:<br><br>"
-    
-    for plato in platos:
-        texto += f"- {plato.nombre} | Categoría: {plato.categoria} | Stock: {plato.num_disponible}<br>"
-        
-    return HttpResponse(texto)
+    return render(request, 'gestion/panel_cocina.html', {'platos': platos})
+
+@staff_member_required
+def crear_plato(request):
+    if request.method == 'POST':
+        form = PlatoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('gestion:panel_cocina')
+    else:
+        form = PlatoForm()
+    return render(request, 'gestion/form_plato.html', {'form': form, 'titulo': 'Añadir Nuevo Plato'})
+
+@staff_member_required
+def editar_plato(request, plato_id):
+    plato = get_object_or_404(Plato, pk=plato_id)
+    if request.method == 'POST':
+        form = PlatoForm(request.POST, instance=plato)
+        if form.is_valid():
+            form.save()
+            return redirect('gestion:panel_cocina')
+    else:
+        form = PlatoForm(instance=plato)
+    return render(request, 'gestion/form_plato.html', {'form': form, 'titulo': f'Editar Plato: {plato.nombre}'})
+
+@staff_member_required
+def borrar_plato(request, plato_id):
+    plato = get_object_or_404(Plato, pk=plato_id)
+    if request.method == 'POST':
+        plato.delete()
+        return redirect('gestion:panel_cocina')
+    return render(request, 'gestion/confirmar_borrado.html', {'plato': plato})

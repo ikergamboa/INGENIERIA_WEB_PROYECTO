@@ -1,29 +1,33 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends 'base.html' %}
 
 {% block content %}
   <h2>Menús Disponibles</h2>
-  
-  <div class="lista-platos">
-    <ul>
-      <!-- Recorremos los platos enviados por la vista -->
-      {% for plato in platos %}
-        <li>
-          <strong>{{ plato.nombre }}</strong> - {{ plato.precio }}€ 
-          <br>
-          <small>Categoría: {{ plato.categoria }} | Calorías: {{ plato.calorias }} kcal</small>
-          <p>{{ plato.descripcion }}</p>
+
+  <ul>
+    {% for plato in platos %}
+      <li>
+        <strong>{{ plato.nombre }}</strong> - {{ plato.precio }}€<br>
+        <p>{{ plato.descripcion }}</p>
+
+        {% if plato.num_disponible > 0 %}
+          <span style="color: green;">Disponible ({{ plato.num_disponible }} uds.)</span>
           
-          {% if plato.disponible %}
-            <span style="color: green;">Disponible ({{ plato.num_disponible }} uds.)</span>
+          {% if user.is_authenticated %}
+            <form method="POST" action="{% url 'pedidos:hacer_pedido' plato.id %}" style="margin-top: 10px;">
+              {% csrf_token %}
+              <label for="cantidad">Cantidad:</label>
+              <input type="number" name="cantidad" value="1" min="1" max="{{ plato.num_disponible }}">
+              <input type="submit" value="Pedir ahora">
+            </form>
           {% else %}
-            <span style="color: red;">Agotado</span>
+            <p><small><a href="{% url 'gestion:login' %}">Inicia sesión</a> para realizar un pedido.</small></p>
           {% endif %}
-        </li>
-        <hr>
-      {% empty %}
-        <li>No hay platos disponibles en este momento.</li>
-      {% endfor %}
-    </ul>
-  </div>
+
+        {% else %}
+          <span style="color: red; font-weight: bold;">AGOTADO</span>
+        {% endif %}
+      </li>
+      <hr>
+    {% endfor %}
+  </ul>
 {% endblock %}

@@ -1,0 +1,141 @@
+/* Estilos globales y reset básico */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Cabecera y Barra de navegación */
+header {
+    background-color: #1e293b;
+    color: #ffffff;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+}
+
+nav a {
+    color: #cbd5e1;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+nav a:hover {
+    color: #ffffff;
+}
+
+nav span {
+    color: #94a3b8;
+    font-style: italic;
+}
+
+/* Contenido Principal */
+main {
+    max-width: 900px;
+    margin: 2rem auto;
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+h2 {
+    color: #0f172a;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0.5rem;
+}
+
+/* Listas y Catálogo */
+ul {
+    list-style: none;
+}
+
+li {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Tablas (Panel de cocina) */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+th {
+    background-color: #f1f5f9;
+    color: #475569;
+    font-weight: 600;
+}
+
+/* Formularios y Botones */
+form {
+    margin-top: 0.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+}
+
+input[type="submit"],
+button,
+.btn {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+}
+
+input[type="submit"]:hover,
+button:hover,
+.btn:hover {
+    background-color: #1d4ed8;
+}
