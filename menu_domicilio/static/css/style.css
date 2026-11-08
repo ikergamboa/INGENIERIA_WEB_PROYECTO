@@ -28,6 +28,7 @@ header h1 {
 nav ul {
     list-style: none;
     display: flex;
+    flex-wrap: wrap;
     gap: 1.2rem;
     align-items: center;
 }
@@ -65,17 +66,27 @@ h2 {
     padding-bottom: 0.5rem;
 }
 
+main a {
+    color: #1d4ed8;
+}
+
 /* Listas y Catálogo */
 ul {
     list-style: none;
 }
 
-li {
-    background: #f8fafc;
+main > ul > li {
+    background: #ffffff;
     border: 1px solid #e2e8f0;
-    border-radius: 6px;
-    padding: 1rem;
+    border-left: 4px solid #2563eb;
+    border-radius: 10px;
+    padding: 1.25rem;
     margin-bottom: 1rem;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+}
+
+main > ul > li + hr {
+    display: none;
 }
 
 /* Tablas (Panel de cocina) */
@@ -85,10 +96,15 @@ table {
     margin-top: 1rem;
 }
 
+table,
+th,
+td {
+    border: 1px solid #e2e8f0;
+}
+
 th, td {
     padding: 0.75rem 1rem;
     text-align: left;
-    border-bottom: 1px solid #e2e8f0;
 }
 
 th {
@@ -102,6 +118,10 @@ form {
     margin-top: 0.5rem;
 }
 
+main > form {
+    max-width: 32rem;
+}
+
 label {
     display: block;
     margin-bottom: 0.3rem;
@@ -109,22 +129,29 @@ label {
 }
 
 input[type="text"],
+input[type="email"],
 input[type="password"],
 input[type="number"],
 select,
 textarea {
     width: 100%;
-    padding: 0.5rem;
+    padding: 0.65rem 0.75rem;
     margin-bottom: 1rem;
     border: 1px solid #cbd5e1;
-    border-radius: 4px;
+    border-radius: 6px;
+    font: inherit;
+}
+
+main .errorlist {
+    margin-bottom: 0.5rem;
+    color: #b91c1c;
 }
 
 input[type="submit"],
 button,
 .btn {
     background-color: #2563eb;
-    color: white;
+    color: #ffffff;
     border: none;
     padding: 0.5rem 1rem;
     border-radius: 4px;
