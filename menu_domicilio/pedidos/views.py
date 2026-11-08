@@ -16,21 +16,22 @@ def mis_pedidos(request):
 @login_required
 def hacer_pedido(request, plato_id):
     if request.method == 'POST':
+        # Comprobar si el usuario actual tiene un perfil de cliente asociado
+        if not hasattr(request.user, 'cliente'):
+            # Si es un superusuario/admin sin perfil de cliente
+            return redirect('catalogo:menus_disponibles')
+
         plato = get_object_or_404(Plato, pk=plato_id)
         cantidad = int(request.POST.get('cantidad', 1))
 
-        # Comprobamos que haya stock suficiente
         if plato.num_disponible >= cantidad:
-            # 1. Descontamos el stock y guardamos el plato
             plato.num_disponible -= cantidad
             plato.save()
 
-            # 2. Creamos el pedido asignando el plato y la cantidad
-            cliente_actual = request.user.cliente
             Pedido.objects.create(
-                cliente=cliente_actual,
-                plato=plato,           # <-- AQUÍ: pasamos la instancia del plato
-                cantidad=cantidad       # <-- y la cantidad pedida
+                cliente=request.user.cliente,
+                plato=plato,
+                cantidad=cantidad
             )
 
             return redirect('pedidos:mis_pedidos')
