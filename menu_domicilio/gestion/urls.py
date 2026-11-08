@@ -6,6 +6,7 @@ app_name = 'gestion'
 urlpatterns = [
     path('cocina/', views.panel_cocina, name='panel_cocina'),
     path('registro/', views.registro, name='registro'),
+    path('registro/exito/', views.registro_exito, name='registro_exito'),
     path('login/', views.iniciar_sesion, name='login'),
     path('logout/', views.cerrar_sesion, name='logout'),
     path('cocina/crear/', views.crear_plato, name='crear_plato'),

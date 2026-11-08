@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div style="text-align: center; padding: 20px;">
+    <h2>¡Registro completado con éxito!</h2>
+    <p>Tu cuenta ha sido creada correctamente. Ya puedes acceder al sistema con tus credenciales.</p>
+    <br>
+    <a href="{% url 'gestion:login' %}" class="btn">Iniciar Sesión</a>
+  </div>
+{% endblock %}

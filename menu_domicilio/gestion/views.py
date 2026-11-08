@@ -11,26 +11,40 @@ from catalogo.forms import PlatoForm
 
 def registro(request):
     if request.method == 'POST':
-        # Bound form (con datos enviados por el usuario)
-        form = RegistroForm(request.POST)
-        if form.is_valid():
-            # Procesamos y extraemos los datos limpios
-            username = form.cleaned_data['username']
-            email = form.cleaned_data['email']
-            password = form.cleaned_data['password']
-            telefono = form.cleaned_data['telefono']
-            direccion = form.cleaned_data['direccion']
-            
-            # Guardamos en la base de datos (Usuario de Django + Perfil Cliente)
-            user = User.objects.create_user(username=username, email=email, password=password)
-            Cliente.objects.create(usuario=user, telefono=telefono, direccion=direccion)
-            
-            return redirect('menus_disponibles')
-    else:
-        # Unbound form (formulario vacío para peticiones GET)
-        form = RegistroForm()
-        
-    return render(request, 'gestion/registro.html', {'form': form})
+        # 1. Recogemos los campos del formulario HTML
+        username_val = request.POST.get('username', '').strip()
+        email_val = request.POST.get('email', '').strip()
+        password_val = request.POST.get('password', '').strip()
+        telefono = request.POST.get('telefono', '').strip()
+        direccion = request.POST.get('direccion', '').strip()
+
+        # 2. Comprobamos si el nombre de usuario ya existe
+        if User.objects.filter(username=username_val).exists():
+            return render(request, 'gestion/registro.html', {
+                'error': 'El nombre de usuario ya está registrado.'
+            })
+
+        # 3. Creamos el User de Django y lo guardamos en la variable 'nuevo_user'
+        nuevo_user = User.objects.create_user(
+            username=username_val, 
+            email=email_val, 
+            password=password_val
+        )
+
+        # 4. Creamos el Cliente pasando 'usuario=nuevo_user' (coincidiendo con models.py)
+        Cliente.objects.create(
+            usuario=nuevo_user, 
+            telefono=telefono, 
+            direccion=direccion
+        )
+
+        # 5. Redirigimos a la confirmación de éxito
+        return redirect('gestion:registro_exito')
+
+    return render(request, 'gestion/registro.html')
+
+def registro_exito(request):
+    return render(request, 'gestion/registro_exito.html')
 
 def iniciar_sesion(request):
     if request.method == 'POST':
