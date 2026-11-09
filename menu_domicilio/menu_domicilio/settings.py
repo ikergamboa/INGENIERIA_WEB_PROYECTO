@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'catalogo',
     'gestion',
-    'pedidos',
+    'pedidos.apps.PedidosConfig',
     'rest_framework',
     'rest_framework.authtoken',
 ]

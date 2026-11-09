@@ -31,12 +31,10 @@ def registro(request):
             password=password_val
         )
 
-        # 4. Creamos el Cliente pasando 'usuario=nuevo_user' (coincidiendo con models.py)
-        Cliente.objects.create(
-            usuario=nuevo_user, 
-            telefono=telefono, 
-            direccion=direccion
-        )
+        cliente = Cliente.objects.get(usuario=nuevo_user)
+        cliente.telefono = telefono
+        cliente.direccion = direccion
+        cliente.save()
 
         # 5. Redirigimos a la confirmación de éxito
         return redirect('gestion:registro_exito')
