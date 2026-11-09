@@ -14,7 +14,7 @@ class Cliente(models.Model):
 
 class Pedido(models.Model):
     cliente = models.ForeignKey('Cliente', on_delete=models.CASCADE)
-    plato = models.ForeignKey(Plato, on_delete=models.CASCADE)
+    plato = models.ForeignKey(Plato, on_delete=models.SET_NULL, null=True)
     cantidad = models.IntegerField(default=1)
     fecha_creacion = models.DateTimeField(auto_now_add=True)  # Se guarda la fecha/hora actual al crear el pedido
 

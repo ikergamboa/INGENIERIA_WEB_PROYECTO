@@ -7,8 +7,14 @@
     <ul>
       {% for pedido in pedidos %}
         <li>
-          <strong>Pedido #{{ pedido.id }}</strong> - 
-          <strong>Plato:</strong> {{ pedido.plato.nombre }} ({{ pedido.cantidad }} ud/s) 
+          <strong>Pedido #{{ pedido.id }}</strong>
+          <strong>Plato:</strong> 
+          {% if pedido.plato %}
+            {{ pedido.plato.nombre }} 
+          {% else %}
+            Plato descatalogado 
+          {% endif %}
+          ({{ pedido.cantidad }} ud/s) 
         </li>
       {% endfor %}
     </ul>
