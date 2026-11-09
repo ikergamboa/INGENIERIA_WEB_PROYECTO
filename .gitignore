@@ -11,4 +11,4 @@ __pycache__/
 *.pyd
 
 # Bases de datos
-db.sqlite3
+# db.sqlite3
