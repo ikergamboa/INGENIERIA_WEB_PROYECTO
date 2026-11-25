@@ -10,5 +10,5 @@ __pycache__/
 *.pyo
 *.pyd
 
-# Bases de datos
+# Bases de datos (ACTIVAR SOLO CUANDO SE VAYAN A SUBIR PLATOS PARA TRABAJAR TODOS)
 # db.sqlite3
