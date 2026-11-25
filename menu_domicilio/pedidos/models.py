@@ -19,4 +19,4 @@ class Pedido(models.Model):
     fecha_creacion = models.DateTimeField(auto_now_add=True)  # Se guarda la fecha/hora actual al crear el pedido
 
     def __str__(self):
-        return f"Pedido {self.id} - {self.cliente.user.username}"
+        return f"Pedido {self.id} - {self.cliente.usuario.username}"

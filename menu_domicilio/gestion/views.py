@@ -11,12 +11,19 @@ from catalogo.forms import PlatoForm
 
 def registro(request):
     if request.method == 'POST':
-        # 1. Recogemos los campos del formulario HTML
-        username_val = request.POST.get('username', '').strip()
-        email_val = request.POST.get('email', '').strip()
-        password_val = request.POST.get('password', '').strip()
-        telefono = request.POST.get('telefono', '').strip()
-        direccion = request.POST.get('direccion', '').strip()
+        # 1. Asociamos los datos recibidos al formulario y los validamos
+        form = RegistroForm(request.POST)
+        if not form.is_valid():
+            return render(request, 'gestion/registro.html', {
+                'error': 'Revisa los datos del formulario: hay campos vacíos o con formato incorrecto.'
+            })
+
+        # Datos ya validados y limpios (sin espacios al principio ni al final)
+        username_val = form.cleaned_data['username']
+        email_val = form.cleaned_data['email']
+        password_val = form.cleaned_data['password']
+        telefono = form.cleaned_data['telefono']
+        direccion = form.cleaned_data['direccion']
 
         # 2. Comprobamos si el nombre de usuario ya existe
         if User.objects.filter(username=username_val).exists():

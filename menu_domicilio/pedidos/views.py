@@ -11,7 +11,7 @@ def mis_pedidos(request):
     # Filtramos los pedidos que pertenecen exclusivamente a este cliente
     pedidos = Pedido.objects.filter(cliente=cliente_actual)
     
-    return render(request, 'pedidos/mis_pedidos.html', {'pedidos': pedidos})
+    return render(request, 'Pedidos/mis_pedidos.html', {'pedidos': pedidos})
 
 @login_required
 def hacer_pedido(request, plato_id):
@@ -22,7 +22,14 @@ def hacer_pedido(request, plato_id):
             return redirect('catalogo:menus_disponibles')
 
         plato = get_object_or_404(Plato, pk=plato_id)
-        cantidad = int(request.POST.get('cantidad', 1))
+        # Validamos la cantidad en el servidor: debe ser un entero mayor o igual que 1
+        try:
+            cantidad = int(request.POST.get('cantidad', 1))
+        except (TypeError, ValueError):
+            return redirect('catalogo:menus_disponibles')
+
+        if cantidad < 1:
+            return redirect('catalogo:menus_disponibles')
 
         if plato.num_disponible >= cantidad:
             plato.num_disponible -= cantidad

@@ -16,7 +16,7 @@ class MenusDisponiblesView(ListView):
     model = Plato 
     
     # template_name sobrescribe la plantilla por defecto para usar la tuya
-    template_name = 'catalogo/menus.html' 
+    template_name = 'Catalogo/menus.html' 
     
     # context_object_name define el nombre de la variable que recibirá el HTML
     context_object_name = 'platos'

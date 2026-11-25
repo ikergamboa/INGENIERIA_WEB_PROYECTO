@@ -9,7 +9,7 @@ from django.db import transaction
 class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cliente
-        fields = ['usuario', 'direccion', 'telefono', 'ciudad']
+        fields = ['usuario', 'direccion', 'telefono']
         read_only_fields = ['usuario']  # Make the 'usuario' field read-only
 
 User = get_user_model()
