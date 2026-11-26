@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <h2>Bienvenido a nuestro Restaurante</h2>
+    <p>Descubre nuestra deliciosa selección de platos.</p>
+{% endblock %}
+
+{% block portada %}
+    <video src="{% static 'video/portada_hd_editado.mp4' %}" alt="Video de portada" class="inicio-video" autoplay muted loop></video>
+{%endblock %}

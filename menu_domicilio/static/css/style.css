@@ -10,19 +10,40 @@ body {
     background-color: #f4f6f9;
     color: #333;
     line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 /* Cabecera y Barra de navegación */
-header {
+header, footer {
     background-color: #1e293b;
     color: #ffffff;
     padding: 1rem 2rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-height: 150px;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+}
+
+footer {
+    margin-top: auto;
 }
 
 header h1 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+    font-size: 2rem;
+}
+
+nav {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 nav ul {
@@ -51,6 +72,7 @@ nav span {
 
 /* Contenido Principal */
 main {
+    width: 100%;
     max-width: 900px;
     margin: 2rem auto;
     background: #ffffff;
@@ -165,4 +187,12 @@ input[type="submit"]:hover,
 button:hover,
 .btn:hover {
     background-color: #1d4ed8;
+}
+
+.inicio-video{
+    width: 100%;
+    height: 700px;
+    object-fit: cover;
+    display: block;
+    object-fit: cover
 }

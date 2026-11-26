@@ -8,9 +8,10 @@
 </head>
 <body>
     <header>
-        <h1>Restaurante a Domicilio</h1>
+        <h1>Menu a Domicilio</h1>
         <nav>
             <ul>
+                <li><a href="{% url 'inicio' %}">Inicio</a></li>
                 <!-- Enlace universal -->
                 <li><a href="{% url 'catalogo:menus_disponibles' %}">Menús Disponibles</a></li>
 
@@ -19,10 +20,15 @@
                     <li><a href="{% url 'pedidos:mis_pedidos' %}">Mis Pedidos</a></li>
                     
                     {% if user.is_staff %}
-                        <!-- Opción visible solo si es Administrador / Staff -->
+                        <!-- Opción visible solo si es Administrador -->
                         <li><a href="{% url 'gestion:panel_cocina' %}">Panel de Cocina</a></li>
                     {% endif %}
+                {% endif %}
+            </ul>
 
+            <ul>
+                {% if user.is_authenticated %}
+                    <!-- Usuario con sesión iniciada -->
                     <li><span>Hola, {{ user.username }}</span></li>
                     <li><a href="{% url 'gestion:logout' %}">Cerrar Sesión</a></li>
                 {% else %}
@@ -34,9 +40,16 @@
         </nav>
     </header>
 
+    {% block portada %}
+    {% endblock %}
+
     <main>
         {% block content %}
         {% endblock %}
     </main>
+
+    <footer>
+        <p>Prueba footer</p>
+    </footer>
 </body>
 </html>
